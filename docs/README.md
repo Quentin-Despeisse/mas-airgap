@@ -63,19 +63,20 @@ podman run -ti --rm --platform linux/amd64 -v $LOCAL_DIR:/mnt/registry quay.io/i
 ```bash
 podman run -ti --rm --platform linux/amd64 -v $LOCAL_DIR:/mnt/registry quay.io/ibmmas/cli:$CLI_VERSION mas mirror-images -m direct -d /mnt/registry/others -H $REGISTRY_HOST -P $REGISTRY_PORT -u $REGISTRY_USERNAME -p $REGISTRY_PASSWORD -c $CATALOG_VERSION -C $MAS_CHANNEL --mirror-db2 --ibm-entitlement $IBM_ENTITLEMENT_KEY
 ```
-10. Déposer le fichier de licences dans le dossier `$LOCAL_DIR`
-11. Lancer le CLI d'installation MAS :
+## Préparation du Cluster
+1. Déposer le fichier de licences dans le dossier `$LOCAL_DIR`
+2. Lancer le CLI d'installation MAS :
 ```bash
 podman run -ti --rm --platform linux/amd64 -v $LOCAL_DIR:/mnt/home cli:$CLI_VERSION
 ```
-12.	Se connecter au cluster Openshift depuis le CLI en copiant la commande de connexion depuis la console :
+3. Se connecter au cluster Openshift depuis le CLI en copiant la commande de connexion depuis la console :
 ![login_cmd.png](img/login_cmd.png)
-13. Copier le certificat du repository d'entreprise dans le dossier `$LOCAL_DIR`
-14. Configurer les catalogues sur Openshift :
+4. Copier le certificat du repository d'entreprise dans le dossier `$LOCAL_DIR`
+5. Configurer les catalogues sur Openshift :
 ```bash
 mas configure-airgap --setup-redhat-catalogs -H $REGISTRY_HOST -P $REGISTRY_PORT -u $REGISTRY_USERNAME -p $REGISTRY_PASSWORD --ca-file /mnt/home/$REGISTRY_CA --no-confirm
 ```
-15. Créer la ImageTagMirrorSet en cliquant sur le + en haut à droite de la console Openshift :
+6. Créer la ImageTagMirrorSet en cliquant sur le + en haut à droite de la console Openshift :
 
 ```yml
 apiVersion: config.openshift.io/v1
@@ -88,8 +89,8 @@ spec:
         - '$REGISTRY_HOST: $REGISTRY_PORT/ibmmas'
       source: quay.io/ibmmas
 ```
-
-16. Lancer l'installation de MAS :
+## Installation de MAS
+1. Lancer l'installation de MAS :
 ```bash
 mas install
 ```
