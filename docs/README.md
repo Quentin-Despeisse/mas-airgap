@@ -63,6 +63,7 @@ podman run -ti --rm --platform linux/amd64 -v $LOCAL_DIR:/mnt/registry quay.io/i
 ```bash
 podman run -ti --rm --platform linux/amd64 -v $LOCAL_DIR:/mnt/registry quay.io/ibmmas/cli:$CLI_VERSION mas mirror-images -m direct -d /mnt/registry/others -H $REGISTRY_HOST -P $REGISTRY_PORT -u $REGISTRY_USERNAME -p $REGISTRY_PASSWORD -c $CATALOG_VERSION -C $MAS_CHANNEL --mirror-db2 --ibm-entitlement $IBM_ENTITLEMENT_KEY
 ```
+
 ## Préparation du Cluster
 1. Déposer le fichier de licences dans le dossier `$LOCAL_DIR`
 2. Lancer le CLI d'installation MAS :
@@ -89,6 +90,7 @@ spec:
         - '$REGISTRY_HOST: $REGISTRY_PORT/ibmmas'
       source: quay.io/ibmmas
 ```
+
 ## Installation de MAS
 1. Lancer l'installation de MAS :
 ```bash
