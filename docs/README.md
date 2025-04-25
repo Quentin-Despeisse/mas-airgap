@@ -69,7 +69,6 @@ podman run -ti --rm --platform linux/amd64 -v $LOCAL_DIR:/mnt/registry quay.io/i
 podman run -ti --rm --platform linux/amd64 -v $LOCAL_DIR:/mnt/home cli:$CLI_VERSION
 ```
 12.	Se connecter au cluster Openshift depuis le CLI en copiant la commande de connexion depuis la console :
-
 ![login_cmd.png](img/login_cmd.png)
 13. Copier le certificat du repository d'entreprise dans le dossier `$LOCAL_DIR`
 14. Configurer les catalogues sur Openshift :
@@ -77,7 +76,7 @@ podman run -ti --rm --platform linux/amd64 -v $LOCAL_DIR:/mnt/home cli:$CLI_VERS
 mas configure-airgap --setup-redhat-catalogs -H $REGISTRY_HOST -P $REGISTRY_PORT -u $REGISTRY_USERNAME -p $REGISTRY_PASSWORD --ca-file /mnt/home/$REGISTRY_CA --no-confirm
 ```
 15. Créer la ImageTagMirrorSet en cliquant sur le + en haut à droite de la console Openshift :
-```yaml
+```YAML
 apiVersion: config.openshift.io/v1
 kind: ImageTagMirrorSet
 metadata:
