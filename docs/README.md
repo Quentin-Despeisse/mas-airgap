@@ -29,7 +29,7 @@ export REGISTRY_PASSWORD=<Mot de passe de votre repository d entreprise>
 export REGISTRY_CA=<Nom du fichier contenant le certificat de votre repository d entreprise>
 export REDHAT_SECRET=/mnt/registry/pull-secret.txt
 export OCP_VERSION=4.16
-export CLI_VERSION=13.15.0
+export CLI_VERSION=13.15.0-amd64
 export CATALOG_VERSION=v9-250306-amd64
 export MAS_CHANNEL=9.0.x
 ```
@@ -73,7 +73,8 @@ podman run -ti --rm --platform linux/amd64 -v $LOCAL_DIR:/mnt/home cli:$CLI_VERS
 3. Se connecter au cluster Openshift depuis le CLI en copiant la commande de connexion depuis la console :
 ![login_cmd.png](img/login_cmd.png)
 4. Copier le certificat du repository d'entreprise dans le dossier `$LOCAL_DIR`
-5. Configurer les catalogues sur Openshift :
+5. Rejouer les commandes pour définir les variables d'environnement
+6. Configurer les catalogues sur Openshift :
 ```bash
 mas configure-airgap --setup-redhat-catalogs -H $REGISTRY_HOST -P $REGISTRY_PORT -u $REGISTRY_USERNAME -p $REGISTRY_PASSWORD --ca-file /mnt/home/$REGISTRY_CA --no-confirm
 ```
