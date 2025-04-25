@@ -76,7 +76,7 @@ podman run -ti --rm --platform linux/amd64 -v $LOCAL_DIR:/mnt/home cli:$CLI_VERS
 mas configure-airgap --setup-redhat-catalogs -H $REGISTRY_HOST -P $REGISTRY_PORT -u $REGISTRY_USERNAME -p $REGISTRY_PASSWORD --ca-file /mnt/home/$REGISTRY_CA --no-confirm
 ```
 15. Créer la ImageTagMirrorSet en cliquant sur le + en haut à droite de la console Openshift :
-```YAML
+```
 apiVersion: config.openshift.io/v1
 kind: ImageTagMirrorSet
 metadata:
