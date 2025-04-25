@@ -84,7 +84,7 @@ metadata:
 spec:
   imageTagMirrors:
     - mirrors:
-        - '$REGISTRY_HOST: $REGISTRY_PORT/ibmmas'
+        - $REGISTRY_HOST: $REGISTRY_PORT/ibmmas
       source: quay.io/ibmmas
 ```
 16. Lancer l'installation de MAS :
