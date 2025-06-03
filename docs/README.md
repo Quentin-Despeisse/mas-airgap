@@ -4,10 +4,10 @@ Cette documentation a pour objectif de décrire comment installer MAS dans un cl
 
 Elle a été testée dans les configurations suivantes :
 - Openshift 4.16
-- Maximo Application Suite v9.0.10
-- IBM Maximo Operator Catalog v9-250306-amd64
+- Maximo Application Suite v9.0.11
+- IBM Maximo Operator Catalog v9-250501-amd64
 - Podman v5.4.2
-- MAS CLI v13.15.0
+- MAS CLI v13.24.0
 
 ## Prérequis
 - Un repository d'entreprise (Docker Registry, par exemple)
@@ -29,8 +29,8 @@ export REGISTRY_PASSWORD=<Mot de passe de votre repository d entreprise>
 export REGISTRY_CA=<Nom du fichier contenant le certificat de votre repository d entreprise>
 export REDHAT_SECRET=/mnt/registry/pull-secret.txt
 export OCP_VERSION=4.16
-export CLI_VERSION=13.15.0-amd64
-export CATALOG_VERSION=v9-250306-amd64
+export CLI_VERSION=13.24.0-amd64
+export CATALOG_VERSION=v9-250501-amd64
 export MAS_CHANNEL=9.0.x
 ```
 2. Copier l'image du CLI en local :
