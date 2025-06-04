@@ -32,17 +32,18 @@ export OCP_VERSION=4.16
 export CLI_VERSION=13.24.0-amd64
 export CATALOG_VERSION=v9-250501-amd64
 export MAS_CHANNEL=9.0.x
+export SSL_CERT_FILE=$LOCAL_DIR/$REGISTRY_CA
 ```
-2. Copier l'image du CLI en local :
+2. Déposer le pull secret de RedHat et le certificat du Container Registry dans le dossier `$LOCAL_DIR`
+3. Copier l'image du CLI en local :
 ```bash
 oc image mirror --dir $LOCAL_DIR/cli quay.io/ibmmas/cli:$CLI_VERSION file://ibmmas/cli:$CLI_VERSION
 ```
-3. Télécharger l'image du CLI sur le repository d'entreprise :
+4. Télécharger l'image du CLI sur le repository d'entreprise :
 ```bash
-podman login $REGISTRY_HOST:$REGISTRY_PORT -u $REGISTRY_USERNAME -p $REGISTRY_PASSWORD
+podman login $REGISTRY_HOST:$REGISTRY_PORT -u $REGISTRY_USERNAME -p $REGISTRY_PASSWORD --cert-dir $LOCAL_DIR
 oc image mirror --dir $LOCAL_DIR/cli file://ibmmas/cli:$CLI_VERSION $REGISTRY_HOST:$REGISTRY_PORT/ibmmas/cli:$CLI_VERSION
 ```
-4. Déposer le pull secret de RedHat dans le dossier `$LOCAL_DIR`
 5. Copier les images RedHat requises pour l'installation de MAS :
 ```bash
 podman run -ti --rm --platform linux/amd64 -v $LOCAL_DIR:/mnt/registry quay.io/ibmmas/cli:$CLI_VERSION mas mirror-redhat-images --mode direct --dir /mnt/registry/redhat -H $REGISTRY_HOST -P $REGISTRY_PORT -u $REGISTRY_USERNAME -p $REGISTRY_PASSWORD --pullsecret $REDHAT_SECRET --mirror-operators --release $OCP_VERSION --no-confirm
@@ -68,7 +69,7 @@ podman run -ti --rm --platform linux/amd64 -v $LOCAL_DIR:/mnt/registry quay.io/i
 1. Déposer le fichier de licences dans le dossier `$LOCAL_DIR`
 2. Lancer le CLI d'installation MAS :
 ```bash
-podman run -ti --rm --platform linux/amd64 -v $LOCAL_DIR:/mnt/home cli:$CLI_VERSION
+podman run -ti --rm --platform linux/amd64 -v $LOCAL_DIR:/mnt/home $REGISTRY_HOST:$REGISTRY_PORT/ibmmas/cli:$CLI_VERSION
 ```
 3. Se connecter au cluster Openshift depuis le CLI en copiant la commande de connexion depuis la console :
 ![login_cmd.png](img/login_cmd.png)
