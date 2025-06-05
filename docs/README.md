@@ -60,9 +60,9 @@ podman run -ti --rm --platform linux/amd64 -v $LOCAL_DIR:/mnt/registry quay.io/i
 ```bash
 podman run -ti --rm --platform linux/amd64 -v $LOCAL_DIR:/mnt/registry quay.io/ibmmas/cli:$CLI_VERSION mas mirror-images -m direct -d /mnt/registry/others -H $REGISTRY_HOST -P $REGISTRY_PORT -u $REGISTRY_USERNAME -p $REGISTRY_PASSWORD -c $CATALOG_VERSION -C $MAS_CHANNEL --mirror-mongo --mirror-tsm --mirror-sls --ibm-entitlement $IBM_ENTITLEMENT_KEY 
 ```
-9. (Optionnel) Copier les images de DB2 :
+9. Vérifier que l'intégralité des images a bien été copiée :
 ```bash
-podman run -ti --rm --platform linux/amd64 -v $LOCAL_DIR:/mnt/registry quay.io/ibmmas/cli:$CLI_VERSION mas mirror-images -m direct -d /mnt/registry/others -H $REGISTRY_HOST -P $REGISTRY_PORT -u $REGISTRY_USERNAME -p $REGISTRY_PASSWORD -c $CATALOG_VERSION -C $MAS_CHANNEL --mirror-db2 --ibm-entitlement $IBM_ENTITLEMENT_KEY
+podman run -ti --rm --platform linux/amd64 -v $LOCAL_DIR:/mnt/registry quay.io/ibmmas/cli:$CLI_VERSION mas mirror-images -m direct -d /mnt/registry/others -H $REGISTRY_HOST -P $REGISTRY_PORT -u $REGISTRY_USERNAME -p $REGISTRY_PASSWORD -c $CATALOG_VERSION -C $MAS_CHANNEL --mirror-catalog --mirror-manage  --mirror-mongo --mirror-tsm --mirror-sls --ibm-entitlement $IBM_ENTITLEMENT_KEY
 ```
 
 ## Préparation du Cluster
@@ -89,7 +89,7 @@ metadata:
 spec:
   imageTagMirrors:
     - mirrors:
-        - '$REGISTRY_HOST: $REGISTRY_PORT/ibmmas'
+        - '$REGISTRY_HOST:$REGISTRY_PORT/ibmmas'
       source: quay.io/ibmmas
 ```
 
@@ -100,11 +100,11 @@ spec:
 ```bash
 mkdir mascfg
 ```
-3. Lancer l'installation de MAS Core :
+3. Lancer l'installation de MAS Core (Environ 2h):
 ```bash
 ansible-playbook ibm.mas_devops.oneclick_core
 ```
-4. Lancer l'installation de MAS Manage :
+4. Lancer l'installation de MAS Manage (Environ 4h):
 ```bash
 ansible-playbook ibm.mas_devops.oneclick_add_manage
 ```
