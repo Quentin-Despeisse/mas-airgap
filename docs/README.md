@@ -58,7 +58,7 @@ podman run -ti --rm --platform linux/amd64 -v $LOCAL_DIR:/mnt/registry quay.io/i
 ```
 8. Copier les images des dépendances :
 ```bash
-podman run -ti --rm --platform linux/amd64 -v $LOCAL_DIR:/mnt/registry quay.io/ibmmas/cli:$CLI_VERSION mas mirror-images -m direct -d /mnt/registry/others -H $REGISTRY_HOST -P $REGISTRY_PORT -u $REGISTRY_USERNAME -p $REGISTRY_PASSWORD -c $CATALOG_VERSION -C $MAS_CHANNEL --mirror-mongo --mirror-tsm --mirror-sls --mirror-cfs --ibm-entitlement $IBM_ENTITLEMENT_KEY 
+podman run -ti --rm --platform linux/amd64 -v $LOCAL_DIR:/mnt/registry quay.io/ibmmas/cli:$CLI_VERSION mas mirror-images -m direct -d /mnt/registry/others -H $REGISTRY_HOST -P $REGISTRY_PORT -u $REGISTRY_USERNAME -p $REGISTRY_PASSWORD -c $CATALOG_VERSION -C $MAS_CHANNEL --mirror-mongo --mirror-tsm --mirror-sls --ibm-entitlement $IBM_ENTITLEMENT_KEY 
 ```
 9. (Optionnel) Copier les images de DB2 :
 ```bash
@@ -94,7 +94,17 @@ spec:
 ```
 
 ## Installation de MAS
-1. Lancer l'installation de MAS :
+1. Toujours dans le conteneur du CLI, déposer le fichier de licences MAS et le certificat de la BDD dans le dossier `$LOCAL_DIR`
+2. Paramétrer le fichier `env.sh` fourni et l'exécuter 
+3. Se placer dans le dossier `$LOCAL_DIR` et créer le dossier `mascfg`
 ```bash
-mas install
+mkdir mascfg
+```
+3. Lancer l'installation de MAS Core :
+```bash
+ansible-playbook ibm.mas_devops.oneclick_core
+```
+4. Lancer l'installation de MAS Manage :
+```bash
+ansible-playbook ibm.mas_devops.oneclick_add_manage
 ```
